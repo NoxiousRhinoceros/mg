@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
  use Ubiquity\utils\http\USession;
+use Ubiquity\utils\http\URequest;
 
  /**
  * Controller RandomNumberGame
@@ -31,6 +32,23 @@ class RandomNumberGame extends ControllerBase{
 	public function termine(){
 	    USession::terminate();
 	    $this->index();
+	}
+
+
+	public function soumet(){
+		$nbPropose=URequest::post('nbPropose');
+		$nbATrouver=USession::get(self::SESSION_KEY);
+		if($nbATrouver==$nbPropose){
+		    $msgType="success";
+		    $msg="Vous avez gagné !";
+		    $icon="thumbs up";
+		}else{
+		    $msgType="error";
+		    $msg="Le nombre proposé n'est pas le bon.";
+		    $icon="thumbs down";
+		}
+		$this->loadView('RandomNumberGame/soumet.html',compact('msg','icon','msgType','nbPropose'));
+
 	}
 
 }
