@@ -13,4 +13,9 @@ class Test extends ControllerBase{
 		echo $value;
 	}
 
+
+	public function zz(){
+		
+	}
+
 }

@@ -8,7 +8,11 @@ namespace controllers;
 class RandomNumberGame extends ControllerBase{
     const SESSION_KEY="random";
 	public function index(){
-		$this->loadView("RandomNumberGame/index.html");
+	    if(USession::exists(self::SESSION_KEY)){
+	        $this->propose();
+	    }else{
+		  $this->loadView("RandomNumberGame/index.html");
+	    }
 	}
 
 	public function genere(){
@@ -22,6 +26,11 @@ class RandomNumberGame extends ControllerBase{
 		
 		$this->loadView('RandomNumberGame/propose.html');
 
+	}
+	
+	public function termine(){
+	    USession::terminate();
+	    $this->index();
 	}
 
 }
